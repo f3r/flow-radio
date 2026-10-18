@@ -120,7 +120,36 @@ function headline() {
   return `${on ? "Flow Ongoing" : "Get in Flow"} · ${state.station}`;
 }
 
+/* Held for another app, through radio-flow://hold and radio-flow://release (shogun-flow's Jarvis while the owner
+   talks): hold pauses what plays and remembers it, release plays again only what hold paused. Playing it by hand
+   in between ends the hold. */
+let held = false;
+
+function onLink(link) {
+  let action;
+  try {
+    action = new URL(link).hostname;
+  } catch {
+    return;
+  }
+  const on = playing() || state.status === "loading";
+  if (action === "hold" && on) {
+    held = true;
+    win?.webContents.send("toggle");
+  } else if (action === "release") {
+    if (held && !on) win?.webContents.send("toggle");
+    held = false;
+  }
+}
+
+app.setAsDefaultProtocolClient("radio-flow");
+app.on("open-url", (e, link) => {
+  e.preventDefault();
+  if (win) onLink(link);
+});
+
 ipcMain.on("status", (_e, next) => {
+  if (held && next.status === "playing") held = false;
   state = next;
   setAnimating(state.status === "playing");
   tray.setToolTip(headline());

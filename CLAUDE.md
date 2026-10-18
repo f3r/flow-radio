@@ -9,6 +9,7 @@ macOS menu bar focus radio: a station panel playing YouTube in a hidden player. 
 - Each station switch builds a fresh player: reusing one leaves the previous playlist loaded when the next one fails to load (YouTube Mixes, `list=RD…`), and that playlist would then be saved as the new station's position.
 - A link to a video inside a Mix keeps the video, not the Mix. Errors 100/101/150 mean the station can't play outside youtube.com: the panel says so and offers retry. A station that never starts shows retry after 20 s.
 - Stations, the chosen station and positions are saved via IPC to `store.json` in the app's userData folder (`~/Library/Application Support/Radio Flow/`). On first launch after the rename, the old "Flow Radio" folder is copied across.
+- Other apps pause it with `radio-flow://hold` and play it again with `radio-flow://release` (shogun-flow's Jarvis, while the owner talks): release plays only what hold paused, and playing by hand in between ends the hold. Opening the link starts the app when it is not running, so callers check first.
 - The tray icon is drawn in code: the five-bar equalizer in the cyan → periwinkle gradient, still when stopped, bouncing while playing.
 
 ## Rules
