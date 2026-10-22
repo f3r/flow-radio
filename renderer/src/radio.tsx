@@ -1,4 +1,4 @@
-import { Pencil, Plus, RotateCw, Trash2 } from "lucide-react";
+import { Pencil, Plus, RotateCcw, RotateCw, Trash2 } from "lucide-react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 /**
@@ -349,10 +349,10 @@ export function Radio() {
     playlistSetup.current = "playlist" in next ? (resumed ? "loop" : "shuffle") : null;
   };
 
-  const start = async () => {
+  const start = async (skipRemember?: boolean) => {
     setStatus("loading");
     setBlocked(false);
-    remember();
+    if (!skipRemember) remember();
     playerRef.current?.destroy();
     playerRef.current = null;
     try {
@@ -406,6 +406,11 @@ export function Radio() {
       player.pauseVideo();
     }
     else if (status === "paused") player.playVideo();
+  };
+
+  const restart = () => {
+    writePosition(station.id, null);
+    void start(true);
   };
 
   const choose = (next: Station) => {
@@ -750,6 +755,20 @@ export function Radio() {
             >
               {status === "error" ? "Retry" : on ? "Flow Ongoing" : "Get in Flow"}
             </span>
+            {clock && !clock.live ? (
+              <span
+                role="button"
+                tabIndex={-1}
+                aria-label="restart from beginning"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  restart();
+                }}
+                className="flex size-6 shrink-0 items-center justify-center rounded-sm text-text-dim outline-none hover:text-text group-focus/deck:text-status group-focus/deck:hover:bg-status/15"
+              >
+                <RotateCcw aria-hidden className="size-3.5" strokeWidth={2} />
+              </span>
+            ) : null}
             <DeckMeta status={status} clock={clock} />
           </button>
         </div>
