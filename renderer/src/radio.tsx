@@ -349,10 +349,10 @@ export function Radio() {
     playlistSetup.current = "playlist" in next ? (resumed ? "loop" : "shuffle") : null;
   };
 
-  const start = async () => {
+  const start = async (skipRemember?: boolean) => {
     setStatus("loading");
     setBlocked(false);
-    remember();
+    if (!skipRemember) remember();
     playerRef.current?.destroy();
     playerRef.current = null;
     try {
@@ -410,7 +410,7 @@ export function Radio() {
 
   const restart = () => {
     writePosition(station.id, null);
-    void start();
+    void start(true);
   };
 
   const choose = (next: Station) => {
