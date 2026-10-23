@@ -1,0 +1,16 @@
+{
+  "name": "radio-flow-pool",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-22",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "radio-flow-pool",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+  "ratelimits": [
+    { "name": "READS", "namespace_id": "1001", "simple": { "limit": 60, "period": 60 } },
+    { "name": "WRITES", "namespace_id": "1002", "simple": { "limit": 10, "period": 60 } }
+  ]
+}
