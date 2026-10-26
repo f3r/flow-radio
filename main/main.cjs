@@ -174,7 +174,7 @@ ipcMain.handle("title", async (_e, url) => {
 /* The shared stations pool (pool/). Nothing reaches it until random, share or keep, and every failure is a null:
    an unreachable pool only ever shows a notice. */
 // Not deployed yet (pool/README.md): .invalid never resolves, so the app behaves as with the pool unreachable.
-const POOL_URL = "https://radio-flow-pool.invalid";
+const POOL_URL = "https://radio-flow-pool.radio-flow-pool.workers.dev";
 const POOL_TIMEOUT_MS = 5_000;
 
 function poolFetch(pathname, body) {

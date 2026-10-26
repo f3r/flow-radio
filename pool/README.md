@@ -23,4 +23,4 @@ From the repository root, with access to the owner's Cloudflare account:
 4. Run `pnpm --filter radio-flow-pool exec wrangler deploy`.
 5. Replace the URL below with the deployed Worker URL for the app integration issue.
 
-Deployed at: not yet
+Deployed at: https://radio-flow-pool.radio-flow-pool.workers.dev
