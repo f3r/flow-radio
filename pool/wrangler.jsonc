@@ -6,7 +6,7 @@
     {
       "binding": "DB",
       "database_name": "radio-flow-pool",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "8031ee88-40eb-4286-9900-40ca039de791"
     }
   ],
   "ratelimits": [
